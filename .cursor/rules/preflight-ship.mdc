@@ -1,0 +1,65 @@
+---
+description: Preflight Ship skill activation and working modes
+alwaysApply: true
+---
+
+# Preflight Ship
+
+**Think. Review. Ship.**
+
+Repository root: the directory containing this `.cursor/rules/` folder.
+
+## Repository Structure
+
+- **Skills/** — `engineering-discovery.md`, `delivery-planning.md`, `architecture-review.md`, `feature-retrospective.md`
+- **Checklists/** — Analysis criteria (e.g., `database.md`, `kafka.md`, `rest-api.md`)
+- **Frameworks/** — Process guidance (e.g., `Engineering Lifecycle Framework.md`)
+- **Templates/** — Input-only request templates
+- **Lessons-Learned/** — Captured retrospective outcomes
+
+## Skill Activation
+
+Skills are **not** automatically activated.
+
+Activate a skill only when:
+
+- explicitly requested by the user
+- feature discovery is requested
+- architecture review is requested
+- delivery planning is requested
+- retrospective generation is requested
+
+## Loading Skills
+
+When a skill is activated:
+
+1. Load the corresponding skill from `Skills/`.
+2. Follow the workflow defined in the skill.
+3. Follow the output format defined in the skill.
+4. Allow the skill to determine relevant checklists and frameworks.
+
+The skill is the source of truth.
+
+## Checklist Usage
+
+Checklists should not be loaded automatically. The active skill is responsible for determining, loading, and applying relevant checklists.
+
+## Framework Usage
+
+Frameworks should only be used when required by the active skill or explicitly requested.
+
+## Normal Development Mode
+
+For implementation, debugging, bug fixes, refactoring, testing, and small enhancements — focus directly on the task. Do not activate discovery, planning, review, or retrospective workflows unless explicitly requested.
+
+## Working Modes
+
+Before responding, determine the current mode:
+
+- **Development**
+- **Engineering Discovery** (Think)
+- **Architecture Review** (Review)
+- **Delivery Planning** (Ship)
+- **Feature Retrospective** (Improve)
+
+Use only the workflow appropriate to the current mode.
