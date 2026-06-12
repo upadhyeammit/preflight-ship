@@ -404,7 +404,16 @@ Stories inherit this DoD; do not repeat on every ticket unless team requires it:
 
 ## Output format (required)
 
-After completing the checklist above, generate an **import-ready** task list suitable for Jira copy/paste.
+After completing the checklist above, generate an **import-ready** task list suitable for Jira copy/paste **and** stakeholder review in Google Docs.
+
+Produce **two artifacts** from the same content:
+
+| Artifact | Purpose |
+|----------|---------|
+| `{{Feature}}-Iteration{{N}}-Task-List.md` | Source of truth; version-controlled; Jira field copy/paste |
+| `{{Feature}}-Iteration{{N}}-Task-List.docx` | Google Docs import with epic page breaks and paragraph layout |
+
+Regenerate the `.docx` whenever the markdown task list changes.
 
 ### Document header
 
@@ -415,13 +424,23 @@ Use this header (fill in feature name and iteration):
     Each task below includes:
 
     1. **Title**
-    2. **Description**
-    3. **Test Instructions**
-    4. **Expected Results**
-    5. **Additional Results**
-    6. **Acceptance Criteria**
+    2. **Jira** (issue type, component, labels, fix version, story points, dependencies)
+    3. **Description**
+    4. **Test Instructions**
+    5. **Expected Results**
+    6. **Additional Results**
+    7. **Acceptance Criteria**
 
-    Tasks are **paired** (Dev + QE) per ID.
+    Tasks are **paired** (Dev + QE) per ID. **QE is blocked by Dev** unless noted.
+
+    ### Jira / release context
+
+    **Projects**: …
+    **Fix version**: …
+    **QE policy**: …
+    **MVP increment**: …
+
+    **Definition of Done:** …
 
 ### Epic structure
 
@@ -429,27 +448,76 @@ Use this header (fill in feature name and iteration):
 - Under each epic heading, include **one sentence** describing what the epic delivers.
 - Tag each epic with increment: **MVP** | **Phase 2** | **Stretch** | **Spike** (when applicable).
 - For every Dev task ID `Xn`, create a **paired** `(QE) Xn` task unless explicitly N/A (state why in the epic intro).
-- Per epic, optional bullets: **Assumptions**, **Risks**, **Out of scope** (keeps sprint planning honest).
+- Per epic, optional context lines (not markdown list dashes): `• **Assumptions:** …`, `• **Risks:** …`, `• **Out of scope:** …`.
 
-### Per-task template
+### Per-task template (Google Docs–friendly markdown)
 
-Use this structure for **every** Dev and QE task:
+Use this structure for **every** Dev and QE task. Format for **paragraph breaks**, not markdown list nesting — Google Docs ignores single line breaks and treats `-` prefixes as literal dashes on paste.
 
     ### Xn (DEV) Short slug
 
-    - **Title**: (DEV) Xn — Human-readable title
-    - **Jira**: Issue type (Story/Task) · Component · Labels · Fix version · Story points · Depends on
-    - **Description**: What and why (1–3 sentences). Reference locked decisions where relevant.
-    - **Test Instructions**:
-      - Concrete steps (fixtures, env, commands, assertions).
-    - **Expected Results**:
-      - Observable outcomes after test instructions.
-    - **Additional Results**:
-      - Docs, metrics, runbook snippets, evidence artifacts (or omit section only if truly none).
-    - **Acceptance Criteria**:
-      - Measurable bullets; QE must be able to sign off from these alone.
+    **Title**: (DEV) Xn — Human-readable title
+
+    **Jira**: Issue type (Story/Task) · Component · Labels · Fix version · Story points · Blocked by
+
+    **Description**: What and why (1–3 sentences). Reference locked decisions where relevant.
+
+    **Test Instructions**:
+
+    • Concrete step (fixtures, env, commands, assertions).
+
+    • Another step when needed.
+
+    **Expected Results**:
+
+    • Observable outcome after test instructions.
+
+    **Additional Results**:
+
+    • Docs, metrics, runbook snippets, evidence artifacts (or omit section only if truly none).
+
+    **Acceptance Criteria**:
+
+    • Measurable bullet; QE must be able to sign off from these alone.
+
+Formatting rules for the task-list markdown:
+
+- **No `-` list markers** on task fields or sub-items — use labeled lines (`**Title**:`) and `•` / `◦` for bullets.
+- **Blank line between every field and every bullet** — each block must be its own paragraph (double newline) or Google Docs merges content into one run-on line.
+- **No markdown tables** in the task list — use `**Field**: value` lines (tables paste poorly).
+- **No `---` horizontal rules** — use blank lines between sections.
+- Nested sub-bullets: `◦` under a `•` parent, each on its own line with blank lines between siblings.
 
 For QE tasks: use `### Xn (QE) …`, **Title** `(QE) Xn — …`, and emphasize integration evidence, matrices, and regression.
+
+### Google Docs export (required when stakeholders use Google Docs)
+
+Copy-paste from `.md` **cannot** create page breaks and often breaks layout. Use **file import** instead.
+
+**Workflow (verified):**
+
+1. Generate `{{Feature}}-Iteration{{N}}-Task-List.docx` from the markdown (page break before each `## Epic`).
+2. Upload the `.docx` to Google Drive.
+3. Right-click → **Open with → Google Docs**.
+
+Do **not** open the file locally and copy-paste into an existing Google Doc — that strips page breaks and paragraph structure.
+
+**DOCX generation requirements:**
+
+- Insert a **page break** immediately before each `## Epic …` heading (intro + Jira context on page 1; each epic starts on a new page).
+- Preserve one paragraph per field and per bullet (match the blank-line structure in markdown).
+- Strip markdown syntax to plain text in the Word file (`**bold**` → bold or plain; `` `code` `` → plain).
+- Use a readable body font (e.g. Arial 11pt); epic headings as Heading 1; task headings (`###`) as Heading 2.
+
+**Optional fallback:** generate `.html` with `page-break-before: always` on epic headings if `.docx` import is unavailable. HTML import is less reliable than `.docx` in Google Docs.
+
+**Do not use for page breaks:**
+
+- Form-feed characters (`\f`) in markdown — invisible and ignored by Google Docs on paste.
+- Copy-paste from markdown expecting epic page breaks.
+- `---` or extra blank pages as manual markers — use real page breaks in `.docx` only.
+
+**Jira vs Google Docs:** Jira Description paste (see **Jira mapping** above) may still use `-` bullets — that is separate from the stakeholder task-list file format.
 
 ### Naming conventions
 
@@ -489,9 +557,13 @@ If using CSV/API import instead of paste:
 | Documentation | Dev **Additional Results** or doc epic |
 | Dependencies | Epic order + optional execution-order section in companion doc |
 | Observability | Dedicated tasks when metrics/logs are required |
+| Stakeholder review | `.md` task list + `.docx` with epic page breaks for Google Docs import |
 
 ### Do not use
 
 - `DEV-1`, `QE-1`, `DOC-1` numbering (use epic IDs: A1, B2, …).
 - Unpaired Dev tasks without QE or documented N/A.
 - Vague acceptance criteria (e.g. "works correctly").
+- `-` markdown list syntax in `*-Task-List.md` (pastes as a dash on every row in Google Docs).
+- Single line breaks between task fields without a blank line (Google Docs merges into one paragraph).
+- Copy-paste from markdown into Google Docs when page breaks or clean layout are required — import `.docx` instead.

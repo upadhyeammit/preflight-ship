@@ -64,13 +64,17 @@ Requirements:
 
 ## Output Format
 
-Produce a single markdown file:
+Produce the task list artifacts:
 
-**`{{Feature}}-Iteration{{N}}-Task-List.md`**
+| File | Required |
+|------|----------|
+| **`{{Feature}}-Iteration{{N}}-Task-List.md`** | Yes — source of truth |
+| **`{{Feature}}-Iteration{{N}}-Task-List.docx`** | Yes — Google Docs import (epic page breaks) |
 
 Follow `Skills/delivery-planning.md`:
 
-- **Output format (required)** — epic grouping, paired Dev/QE per ID, six fields + **Jira** metadata per task
+- **Output format (required)** — epic grouping, paired Dev/QE per ID, seven fields per task (Title, Jira, Description, Test Instructions, Expected Results, Additional Results, Acceptance Criteria)
+- **Google Docs export** — Google-Docs-friendly markdown (no `-` lists; blank line between every field/bullet); generate `.docx` with page break before each epic; stakeholders import via Drive → Open with Google Docs (not copy-paste)
 - **Jira mapping** — issue types, Description layout, dependencies
 - **Agile slicing** — MVP / phase labels on epics
 - **Dev/QE workflow** — QE blocked by Dev unless N/A
