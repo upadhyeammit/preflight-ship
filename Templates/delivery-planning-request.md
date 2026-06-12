@@ -14,6 +14,18 @@ Use Delivery Planning Skill.
 
 {{scope}}
 
+### Jira / release context
+
+| Input | Example |
+|-------|---------|
+| **Jira project(s)** | `ROS`, `COST` |
+| **Target fix version / release** | `ROS 1.x` |
+| **Components / teams** | `ros-ocp-backend`, `platform-kruize` |
+| **MVP scope** | What must ship in iteration N vs defer |
+| **QE policy** | Same sprint (QE blocked by Dev) or next sprint |
+
+{{jira_context}}
+
 ---
 
 ## Instructions
@@ -43,49 +55,26 @@ Requirements:
     
 - Tasks should support parallel execution where possible
     
+- Apply **INVEST** gate, **Agile slicing** (MVP labels), and **Jira mapping** from `Skills/delivery-planning.md`
+    
+- Tag epics with MVP / Phase 2 / Stretch where scope may be cut
+    
 
 ---
 
 ## Output Format
 
-# Delivery Summary
+Produce a single markdown file:
 
-# Development Tasks
+**`{{Feature}}-Iteration{{N}}-Task-List.md`**
 
-## DEV-1
+Follow `Skills/delivery-planning.md`:
 
-### Title
+- **Output format (required)** — epic grouping, paired Dev/QE per ID, six fields + **Jira** metadata per task
+- **Jira mapping** — issue types, Description layout, dependencies
+- **Agile slicing** — MVP / phase labels on epics
+- **Dev/QE workflow** — QE blocked by Dev unless N/A
 
-### Description
+Optionally produce a short companion:
 
-### Acceptance Criteria
-
-### Dependencies
-
----
-
-# QE Tasks
-
-## QE-1
-
-### Title
-
-### Description
-
-### Acceptance Criteria
-
-### Dependencies
-
----
-
-# Documentation Tasks
-
-## DOC-1
-
-### Title
-
-### Description
-
-### Acceptance Criteria
-
-### Dependencies
+**`docs/07-implementation-tasks.md`** (or equivalent) — epic index, suggested execution order, critical path, and links to feature docs. Do **not** duplicate full task bodies in the companion doc.
