@@ -11,7 +11,7 @@ Repository root: the directory containing this `.cursor/rules/` folder.
 
 ## Repository Structure
 
-- **Skills/** — `engineering-discovery.md`, `delivery-planning.md`, `architecture-review.md`, `feature-retrospective.md`
+- **Skills/** — `engineering-discovery.md`, `delivery-planning.md`, `delivery-planning-sheets-tracker.md` (optional), `architecture-review.md`, `feature-retrospective.md`
 - **Checklists/** — Analysis criteria (e.g., `database.md`, `kafka.md`, `rest-api.md`)
 - **Frameworks/** — Process guidance (e.g., `Engineering Lifecycle Framework.md`)
 - **Templates/** — Input-only request templates

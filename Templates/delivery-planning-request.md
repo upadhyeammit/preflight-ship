@@ -82,3 +82,13 @@ Follow `Skills/delivery-planning.md`:
 Optionally produce a short companion:
 
 **`docs/07-implementation-tasks.md`** (or equivalent) — epic index, suggested execution order, critical path, and links to feature docs. Do **not** duplicate full task bodies in the companion doc.
+
+### Optional: Google Sheets progress tracker
+
+When requested, also follow **`Skills/delivery-planning-sheets-tracker.md`**:
+
+| File | Purpose |
+|------|---------|
+| **`[Internal ONLY] {{Feature}} Iteration {{N}} JIRA Issues - {{Feature}} pending Tasks.csv`** | Google Sheets import — same columns as namespace feature tracker (no Comments column) |
+
+Generate with `scripts/task-list-to-sheets-csv.py` from the task-list markdown.

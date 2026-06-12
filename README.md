@@ -21,6 +21,7 @@ Skills define workflows. Activate a skill only when explicitly requested.
 | Engineering Discovery | `Skills/engineering-discovery.md` |
 | Architecture Review | `Skills/architecture-review.md` |
 | Delivery Planning | `Skills/delivery-planning.md` |
+| Delivery Planning — Sheets tracker (optional) | `Skills/delivery-planning-sheets-tracker.md` |
 | Feature Retrospective | `Skills/feature-retrospective.md` |
 
 ---

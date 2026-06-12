@@ -539,6 +539,19 @@ Do **not** open the file locally and copy-paste into an existing Google Doc — 
 
 If the repo uses a thin implementation-tasks page, keep it as **epic index + MVP increment + execution order + critical path + external dependencies** only. Put the full task bodies in `{{Feature}}-Iteration{{N}}-Task-List.md`.
 
+### Google Sheets progress tracker (optional)
+
+When the team tracks delivery in a shared Google Sheet (namespace-feature pattern), activate **`Skills/delivery-planning-sheets-tracker.md`**.
+
+Produces:
+
+    [Internal ONLY] {{Feature}} Iteration {{N}} JIRA Issues - {{Feature}} pending Tasks.csv
+
+- Same column layout as the namespace reference tracker — **no Comments column**
+- One row per Dev/QE task; **Issue key** / **Assignee** / **Sprint** left empty until Jira planning
+- Milestones from companion doc **MVP increment** table
+- Generate via `scripts/task-list-to-sheets-csv.py` (see optional skill)
+
 ### Bulk Jira import (optional)
 
 If using CSV/API import instead of paste:
@@ -558,6 +571,7 @@ If using CSV/API import instead of paste:
 | Dependencies | Epic order + optional execution-order section in companion doc |
 | Observability | Dedicated tasks when metrics/logs are required |
 | Stakeholder review | `.md` task list + `.docx` with epic page breaks for Google Docs import |
+| Progress tracking | Optional `.csv` for Google Sheets — see `delivery-planning-sheets-tracker.md` |
 
 ### Do not use
 
